@@ -7,6 +7,16 @@ public class ItemModel {
     private String nome;
     private BigDecimal valor;
 
+    public ItemModel(){
+
+    }
+
+    public ItemModel(Long id, String nome, BigDecimal valor) {
+        this.id = id;
+        this.nome = nome;
+        this.valor = valor;
+    }
+
     public Long getId() {
         return id;
     }

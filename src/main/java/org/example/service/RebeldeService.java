@@ -27,7 +27,7 @@ public class RebeldeService implements IRebeldeRepository {
     }
 
     @Override
-    public List<RebeldeModel> buscarTodos() {
+    public List<RebeldeModel> buscarTodosRebeldes() {
         String sql = "SELECT * FROM rebeldes";
         try {
             ResultSet resultSet = statement.executeQuery(sql);
@@ -51,7 +51,7 @@ public class RebeldeService implements IRebeldeRepository {
     }
 
     @Override
-    public RebeldeModel buscarPorId(Long id) {
+    public RebeldeModel buscarRebeldePorId(Long id) {
         String sql = String.format("SELECT * FROM rebeldes WHERE id = %s", id);
         try {
             ResultSet resultSet = statement.executeQuery(sql);
@@ -63,7 +63,7 @@ public class RebeldeService implements IRebeldeRepository {
                 String localizacaoRebelde = resultSet.getString("localizacao");
                 boolean traidor = resultSet.getBoolean("traidor");
                 boolean ativo = resultSet.getBoolean("ativo");
-                RebeldeModel rebelde = new RebeldeModel(idRebelde, nomeRebelde, idadeRebelde, generoRebelde, localizacaoRebelde, traidor, ativo);
+                rebelde = new RebeldeModel(idRebelde, nomeRebelde, idadeRebelde, generoRebelde, localizacaoRebelde, traidor, ativo);
             }
             return rebelde;
         } catch (SQLException e) {
@@ -73,7 +73,7 @@ public class RebeldeService implements IRebeldeRepository {
     }
 
     @Override
-    public void adicionar(RebeldeModel rebelde) {
+    public void adicionarRebelde(RebeldeModel rebelde) {
         String sql = String.format("INSERT INTO rebeldes (nome, idade, genero, localizacao)" +
                         " VALUES ('%s, %d, %s, %s')",
                 rebelde.getNome(), rebelde.getIdade(), rebelde.getGenero(), rebelde.getLocalizacao());

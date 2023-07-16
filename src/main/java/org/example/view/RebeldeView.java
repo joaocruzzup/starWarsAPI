@@ -51,6 +51,11 @@ public class RebeldeView {
                 case 5:
 
                 case 6:
+                    System.out.println("Digite o id do rebelde: ");
+                    Long idRebelde = sc.nextLong();
+                    System.out.println("Digite o id do item: ");
+                    Long idItem = sc.nextLong();
+                    rebeldeService.comprarItem(idRebelde, idItem);
                     System.out.println("Encerrando o programa...");
                     break;
                 default:

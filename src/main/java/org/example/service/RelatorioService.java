@@ -23,6 +23,20 @@ public class RelatorioService {
         relatorio = new RelatorioModel();
     }
 
+    public void gerarRelatorio(){
+        int qtdRebeldes = gerarQtdRebeldes();
+        int qtdTraidores = gerarQtdTraidores();
+        int qtdTotal = qtdRebeldes + qtdTraidores;
+        relatorio.setPorcentagemTraidores(( ((double) qtdTraidores /qtdTotal) * 100));
+        relatorio.setPorcentagemRebeldes(((double) qtdRebeldes /qtdTotal) * 100);
+
+        System.out.println("Quantidade total de pessoas: " + qtdTotal);
+        System.out.println("Quantidade total de Rebeldes: " + qtdRebeldes);
+        System.out.println("Quantidade total de Traidores: " + qtdTraidores);
+        System.out.printf("Porcentagem de Rebeldes: %.2f%% %n", relatorio.getPorcentagemRebeldes());
+        System.out.printf("Porcentagem de Traidores: %.2f%% %n", relatorio.getPorcentagemTraidores());
+    }
+
     public int gerarQtdRebeldes(){
         String sql = "SELECT count(traidor) AS qtd_rebeldes FROM rebeldes WHERE traidor IS FALSE";
         try {
@@ -53,19 +67,5 @@ public class RelatorioService {
             e.printStackTrace();
             return 0;
         }
-    }
-
-    public void gerarRelatorio(){
-        int qtdRebeldes = gerarQtdRebeldes();
-        int qtdTraidores = gerarQtdTraidores();
-        int qtdTotal = qtdRebeldes + qtdTraidores;
-        relatorio.setPorcentagemTraidores(( ((double) qtdTraidores /qtdTotal) * 100));
-        relatorio.setPorcentagemRebeldes(((double) qtdRebeldes /qtdTotal) * 100);
-
-        System.out.println("Quantidade total de pessoas: " + qtdTotal);
-        System.out.println("Quantidade total de Rebeldes: " + qtdRebeldes);
-        System.out.println("Quantidade total de Traidores: " + qtdTraidores);
-        System.out.printf("Porcentagem de Rebeldes: %.2f%% %n", relatorio.getPorcentagemRebeldes());
-        System.out.printf("Porcentagem de Traidores: %.2f%% %n", relatorio.getPorcentagemTraidores());
     }
 }

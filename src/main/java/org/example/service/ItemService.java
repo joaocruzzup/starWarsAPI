@@ -19,6 +19,7 @@ public class ItemService implements IItemRepository {
     private ItemModel item;
     private List<ItemModel> itens;
 
+
     public ItemService() {
         try {
             statement = getConnection().createStatement();

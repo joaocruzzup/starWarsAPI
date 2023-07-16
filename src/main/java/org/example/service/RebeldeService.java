@@ -18,12 +18,12 @@ public class RebeldeService implements IRebeldeRepository {
     private List<RebeldeModel> rebeldes;
 
     public RebeldeService() {
+        rebeldes = new ArrayList<>();
         try {
             statement = getConnection().createStatement();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        rebeldes = new ArrayList<>();
     }
 
     @Override
@@ -89,7 +89,7 @@ public class RebeldeService implements IRebeldeRepository {
     }
 
     public void atualizarColuna(Long id, String coluna, String valorAtualizado) {
-        if (coluna.equalsIgnoreCase("nome")  || coluna.equalsIgnoreCase("genero")  || coluna .equalsIgnoreCase("idade") ){
+        if (coluna.equalsIgnoreCase("nome") || coluna.equalsIgnoreCase("genero") || coluna.equalsIgnoreCase("idade")) {
             String sql = String.format("UPDATE rebeldes SET %s = '%s' where id_rebelde = '%d'", coluna, valorAtualizado, id);
             try {
                 statement.executeUpdate(sql);
@@ -97,8 +97,7 @@ public class RebeldeService implements IRebeldeRepository {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             System.out.println("Apenas é possível atualizar nome, genero ou idade");
         }
 
@@ -126,16 +125,26 @@ public class RebeldeService implements IRebeldeRepository {
         }
     }
 
-    public boolean verificarTraidor(Long idRebelde){
+    public void deletarRebelde(Long id) {
+        String sql = String.format("DELETE FROM rebeldes WHERE id_rebelde = '%d'", id);
+        try {
+            statement.executeUpdate(sql);
+            System.out.println("Rebelde de ID " + id + " deletado com sucesso!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean verificarTraidor(Long idRebelde) {
         String sql = String.format("SELECT reportado_id, COUNT(*) AS qtd_reports FROM reports WHERE reportado_id = '%d' GROUP BY reportado_id", idRebelde);
         try {
             ResultSet resultSet = statement.executeQuery(sql);
             int qtdReports = 0;
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 qtdReports = resultSet.getInt("qtd_reports");
             }
             return qtdReports >= 3;
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
@@ -153,52 +162,5 @@ public class RebeldeService implements IRebeldeRepository {
             }
         }
         return false;
-    }
-
-    @Override
-    public void comprarItem(Long idRebelde, Long idItem) {
-        if (!alterarStatusTraidor(idRebelde)){
-            String sql = String.format("INSERT INTO inventario_rebeldes (rebelde_id, item_id) VALUES ('%d', '%d')", idRebelde, idItem);
-            try {
-                statement.executeUpdate(sql);
-                System.out.println("item " + idItem + " comprado pelo rebelde: " + idRebelde + " com sucesso!");
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        } else {
-            System.out.println("Não é possível realizar compras para um traidor!");
-        }
-
-    }
-
-    public void deletarRebelde(Long id){
-        String sql = String.format("DELETE FROM rebeldes WHERE id_rebelde = '%d'", id);
-        try {
-            statement.executeUpdate(sql);
-            System.out.println("Rebelde de ID " + id + " deletado com sucesso!");
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
-
-    public void visualizarInventario(Long idRebelde){
-        String sql = String.format("SELECT rebeldes.id_rebelde, base_compras.nome_item  \n" +
-                "FROM rebeldes \n" +
-                "INNER JOIN inventario_rebeldes\n" +
-                "ON rebeldes.id_rebelde = inventario_rebeldes.rebelde_id \n" +
-                "INNER JOIN base_compras \n" +
-                "ON inventario_rebeldes.item_id = base_compras.id_item \n" +
-                "WHERE rebeldes.id_rebelde = '%d'", idRebelde);
-        try {
-            ResultSet resultSet = statement.executeQuery(sql);
-                int i = 1;
-            while (resultSet.next()){
-                String item = resultSet.getString("nome_item");
-                System.out.printf("Item %d: %s %n", i, item);
-                i++;
-            }
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
     }
 }

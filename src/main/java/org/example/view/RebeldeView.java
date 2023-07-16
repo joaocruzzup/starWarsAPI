@@ -2,6 +2,7 @@ package org.example.view;
 
 import org.example.model.RebeldeModel;
 import org.example.service.InventarioService;
+import org.example.service.ItemService;
 import org.example.service.RebeldeService;
 import org.example.service.RelatorioService;
 
@@ -13,11 +14,17 @@ public class RebeldeView {
 
     private Scanner sc;
     private RebeldeService rebeldeService;
+    private InventarioService inventarioService;
+    private ItemService itemService;
+    private RelatorioService relatorioService;
     private RebeldeModel rebelde;
 
     public RebeldeView() {
         sc = new Scanner(System.in);
         rebeldeService = new RebeldeService();
+        inventarioService = new InventarioService();
+        itemService = new ItemService();
+        relatorioService = new RelatorioService();
     }
 
     public void iniciar() {
@@ -77,14 +84,14 @@ public class RebeldeView {
                 case 7:
                     System.out.println("Digite o id do rebelde: ");
                     idRebelde = sc.nextLong();
-                    rebeldeService.visualizarInventario(idRebelde);
+                    inventarioService.visualizarInventario(idRebelde);
                     break;
                 case 8:
                     System.out.println("Digite o id do rebelde: ");
                     idRebelde = sc.nextLong();
                     System.out.println("Digite o id do item: ");
                     Long idItem = sc.nextLong();
-                    rebeldeService.comprarItem(idRebelde, idItem);
+                    inventarioService.adicionarItemInventario(idRebelde, idItem);
                     break;
                 case 9:
                     RelatorioService relatorioService = new RelatorioService();

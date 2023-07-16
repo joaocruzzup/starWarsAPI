@@ -1,7 +1,9 @@
 package org.example.view;
 
 import org.example.model.RebeldeModel;
+import org.example.service.InventarioService;
 import org.example.service.RebeldeService;
+import org.example.service.RelatorioService;
 
 import java.util.InputMismatchException;
 import java.util.List;
@@ -83,6 +85,10 @@ public class RebeldeView {
                     System.out.println("Digite o id do item: ");
                     Long idItem = sc.nextLong();
                     rebeldeService.comprarItem(idRebelde, idItem);
+                    break;
+                case 9:
+                    RelatorioService relatorioService = new RelatorioService();
+                    relatorioService.gerarRelatorio();
                     break;
                 default:
                     System.out.println("Opção inválida. Tente novamente.");

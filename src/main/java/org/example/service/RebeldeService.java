@@ -34,13 +34,15 @@ public class RebeldeService implements IRebeldeRepository {
             while (resultSet.next()) {
 
                 Long idRebelde = resultSet.getLong("id_rebelde");
-                String nomeRebelde = resultSet.getString("nome_rebelde");
+                String nomeRebelde = resultSet.getString("nome");
                 int idadeRebelde = resultSet.getInt("idade");
                 String generoRebelde = resultSet.getString("genero");
                 String localizacaoRebelde = resultSet.getString("localizacao");
                 boolean traidor = resultSet.getBoolean("traidor");
                 boolean ativo = resultSet.getBoolean("ativo");
                 RebeldeModel rebelde = new RebeldeModel(idRebelde, nomeRebelde, idadeRebelde, generoRebelde, localizacaoRebelde, traidor, ativo);
+
+                System.out.printf("ID: %d | Nome: %s | Idade: %d | Gênero: %s | Localização: %s | traidor: %b | ativo: %b %n", idRebelde, nomeRebelde, idadeRebelde, generoRebelde, localizacaoRebelde, traidor, ativo);
                 rebeldes.add(rebelde);
             }
             return rebeldes;
@@ -52,18 +54,19 @@ public class RebeldeService implements IRebeldeRepository {
 
     @Override
     public RebeldeModel buscarRebeldePorId(Long id) {
-        String sql = String.format("SELECT * FROM rebeldes WHERE id = %s", id);
+        String sql = String.format("SELECT * FROM rebeldes WHERE id_rebelde = %s", id);
         try {
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 Long idRebelde = resultSet.getLong("id_rebelde");
-                String nomeRebelde = resultSet.getString("nome_rebelde");
+                String nomeRebelde = resultSet.getString("nome");
                 int idadeRebelde = resultSet.getInt("idade");
                 String generoRebelde = resultSet.getString("genero");
                 String localizacaoRebelde = resultSet.getString("localizacao");
                 boolean traidor = resultSet.getBoolean("traidor");
                 boolean ativo = resultSet.getBoolean("ativo");
                 rebelde = new RebeldeModel(idRebelde, nomeRebelde, idadeRebelde, generoRebelde, localizacaoRebelde, traidor, ativo);
+                System.out.printf("ID: %d | Nome: %s | Idade: %d | Gênero: %s | Localização: %s | traidor: %b | ativo: %b %n", idRebelde, nomeRebelde, idadeRebelde, generoRebelde, localizacaoRebelde, traidor, ativo);
             }
             return rebelde;
         } catch (SQLException e) {
@@ -74,15 +77,31 @@ public class RebeldeService implements IRebeldeRepository {
 
     @Override
     public void cadastrarRebelde(RebeldeModel rebelde) {
-        String sql = String.format("INSERT INTO rebeldes (nome, idade, genero, localizacao)" +
-                        " VALUES ('%s, %d, %s, %s')",
-                rebelde.getNome(), rebelde.getIdade(), rebelde.getGenero(), rebelde.getLocalizacao());
+        String sql = String.format("INSERT INTO rebeldes (nome, idade, genero, localizacao, traidor, ativo)" +
+                        " VALUES ('%s', '%d', '%s', '%s', '%b', '%b')",
+                rebelde.getNome(), rebelde.getIdade(), rebelde.getGenero(), rebelde.getLocalizacao(), rebelde.isTraidor(), rebelde.isAtivo());
         try {
             statement.executeUpdate(sql);
             System.out.println("Rebelde " + rebelde.getNome() + " adicionado com sucesso!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void atualizarColuna(Long id, String coluna, String valorAtualizado) {
+        if (coluna.equalsIgnoreCase("nome")  || coluna.equalsIgnoreCase("genero")  || coluna .equalsIgnoreCase("idade") ){
+            String sql = String.format("UPDATE rebeldes SET %s = '%s' where id_rebelde = '%d'", coluna, valorAtualizado, id);
+            try {
+                statement.executeUpdate(sql);
+                System.out.println("Rebelde de ID " + id + " atualizado com sucesso!");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            System.out.println("Apenas é possível atualizar nome, genero ou idade");
+        }
+
     }
 
     @Override
@@ -98,7 +117,7 @@ public class RebeldeService implements IRebeldeRepository {
 
     @Override
     public void reportarRebelde(Long idDenunciante, Long idReportado) {
-        String sql = String.format("INSERT INTO reports (denunciante_id, reportado_id) VALUES ('%d', '%d'", idDenunciante, idReportado);
+        String sql = String.format("INSERT INTO reports (denunciante_id, reportado_id) VALUES (%d, %d)", idDenunciante, idReportado);
         try {
             statement.executeUpdate(sql);
             System.out.println("Rebelde " + idReportado + " reportado com sucesso! ");
@@ -150,6 +169,37 @@ public class RebeldeService implements IRebeldeRepository {
             System.out.println("Não é possível realizar compras para um traidor!");
         }
 
+    }
+
+    public void deletarRebelde(Long id){
+        String sql = String.format("DELETE FROM rebeldes WHERE id_rebelde = '%d'", id);
+        try {
+            statement.executeUpdate(sql);
+            System.out.println("Rebelde de ID " + id + " deletado com sucesso!");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void visualizarInventario(Long idRebelde){
+        String sql = String.format("SELECT rebeldes.id_rebelde, base_compras.nome_item  \n" +
+                "FROM rebeldes \n" +
+                "INNER JOIN inventario_rebeldes\n" +
+                "ON rebeldes.id_rebelde = inventario_rebeldes.rebelde_id \n" +
+                "INNER JOIN base_compras \n" +
+                "ON inventario_rebeldes.item_id = base_compras.id_item \n" +
+                "WHERE rebeldes.id_rebelde = '%d'", idRebelde);
+        try {
+            ResultSet resultSet = statement.executeQuery(sql);
+                int i = 1;
+            while (resultSet.next()){
+                String item = resultSet.getString("nome_item");
+                System.out.printf("Item %d: %s %n", i, item);
+                i++;
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
 }

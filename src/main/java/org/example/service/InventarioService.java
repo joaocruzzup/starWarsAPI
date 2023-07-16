@@ -13,6 +13,10 @@ public class InventarioService {
         inventario = new InventarioModel();
     }
 
+    public void buscarInventario(Long idRebelde){
+
+    }
+
     public void adicionarItemInventario(Long idRebelde, List<ItemModel> itens){
         inventario.setId(idRebelde);
         inventario.setItens(itens);

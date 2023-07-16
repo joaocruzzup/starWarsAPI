@@ -9,6 +9,6 @@ public interface IRebeldeRepository {
     public abstract RebeldeModel buscarRebeldePorId(Long id);
     public abstract void adicionarRebelde(RebeldeModel rebelde);
     public abstract void atualizarLocalizacao(Long id, String localizacao);
-    public abstract void reportarRebelde(Long id);
+    public abstract void reportarRebelde(Long id, Long idReportado);
     public abstract void comprarItem(Long idRebelde, Long idItem);
 }

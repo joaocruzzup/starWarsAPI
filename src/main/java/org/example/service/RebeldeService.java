@@ -97,7 +97,7 @@ public class RebeldeService implements IRebeldeRepository {
     }
 
     @Override
-    public void reportarRebelde(Long id) {
+    public void reportarRebelde(Long id, Long idReportado) {
 
     }
 

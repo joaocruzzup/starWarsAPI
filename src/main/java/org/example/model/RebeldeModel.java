@@ -12,7 +12,7 @@ public class RebeldeModel {
     public RebeldeModel(){
 
     }
-    public RebeldeModel(Long id, String nome, int idade, String genero, String localizacao) {
+    public RebeldeModel(String nome, int idade, String genero, String localizacao) {
         this.id = id;
         this.nome = nome;
         this.idade = idade;

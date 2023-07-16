@@ -73,7 +73,7 @@ public class RebeldeService implements IRebeldeRepository {
     }
 
     @Override
-    public void adicionarRebelde(RebeldeModel rebelde) {
+    public void cadastrarRebelde(RebeldeModel rebelde) {
         String sql = String.format("INSERT INTO rebeldes (nome, idade, genero, localizacao)" +
                         " VALUES ('%s, %d, %s, %s')",
                 rebelde.getNome(), rebelde.getIdade(), rebelde.getGenero(), rebelde.getLocalizacao());

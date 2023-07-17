@@ -23,18 +23,14 @@ public class RelatorioService {
         relatorio = new RelatorioModel();
     }
 
-    public void gerarRelatorio(){
-        int qtdRebeldes = gerarQtdRebeldes();
-        int qtdTraidores = gerarQtdTraidores();
-        int qtdTotal = qtdRebeldes + qtdTraidores;
-        relatorio.setPorcentagemTraidores(( ((double) qtdTraidores /qtdTotal) * 100));
-        relatorio.setPorcentagemRebeldes(((double) qtdRebeldes /qtdTotal) * 100);
+    public double gerarPorcentagemRebeldes(){
+        relatorio.setPorcentagemRebeldes(((double) gerarQtdTraidores() / (gerarQtdRebeldes() + gerarQtdTraidores())) * 100);
+        return relatorio.getPorcentagemRebeldes();
+    }
 
-        System.out.println("Quantidade total de pessoas: " + qtdTotal);
-        System.out.println("Quantidade total de Rebeldes: " + qtdRebeldes);
-        System.out.println("Quantidade total de Traidores: " + qtdTraidores);
-        System.out.printf("Porcentagem de Rebeldes: %.2f%% %n", relatorio.getPorcentagemRebeldes());
-        System.out.printf("Porcentagem de Traidores: %.2f%% %n", relatorio.getPorcentagemTraidores());
+    public double gerarPorcentagemTraidores(){
+        relatorio.setPorcentagemRebeldes(((double) gerarQtdRebeldes() / (gerarQtdRebeldes() + gerarQtdTraidores())) * 100);
+        return relatorio.getPorcentagemRebeldes();
     }
 
     public int gerarQtdRebeldes(){

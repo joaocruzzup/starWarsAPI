@@ -29,6 +29,16 @@ public class RebeldeController implements IRebeldeRepository {
     }
 
     @Override
+    public void deletarRebelde(Long id) {
+        rebeldeService.deletarRebelde(id);
+    }
+
+    @Override
+    public void atualizarDadosPessoais(Long id, String coluna, String valorAtualizado) {
+        rebeldeService.atualizarDadosPessoais(id, coluna, valorAtualizado);
+    }
+
+    @Override
     public void atualizarLocalizacao(Long id, String localizacao) {
         rebeldeService.atualizarLocalizacao(id, localizacao);
     }
@@ -36,6 +46,10 @@ public class RebeldeController implements IRebeldeRepository {
     @Override
     public void reportarRebelde(Long id, Long idReportado) {
         rebeldeService.reportarRebelde(id, idReportado);
+    }
+
+    public void alterarStatusTraidor(Long id){
+        rebeldeService.alterarStatusTraidor(id);
     }
 
 }

@@ -88,7 +88,8 @@ public class RebeldeService implements IRebeldeRepository {
         }
     }
 
-    public void atualizarColuna(Long id, String coluna, String valorAtualizado) {
+    @Override
+    public void atualizarDadosPessoais(Long id, String coluna, String valorAtualizado) {
         if (coluna.equalsIgnoreCase("nome") || coluna.equalsIgnoreCase("genero") || coluna.equalsIgnoreCase("idade")) {
             String sql = String.format("UPDATE rebeldes SET %s = '%s' where id_rebelde = '%d'", coluna, valorAtualizado, id);
             try {
@@ -125,6 +126,7 @@ public class RebeldeService implements IRebeldeRepository {
         }
     }
 
+    @Override
     public void deletarRebelde(Long id) {
         String sql = String.format("DELETE FROM rebeldes WHERE id_rebelde = '%d'", id);
         try {

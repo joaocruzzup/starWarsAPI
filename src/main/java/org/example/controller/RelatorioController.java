@@ -9,7 +9,19 @@ public class RelatorioController {
         this.relatorioService = relatorioService;
     }
 
-    public void gerarRelatorio(){
-        relatorioService.gerarRelatorio();
+    public double gerarPorcentagemRebeldes(){
+        return relatorioService.gerarPorcentagemRebeldes();
+    }
+
+    public double gerarPorcentagemTraidores(){
+        return relatorioService.gerarPorcentagemTraidores();
+    }
+
+    public int gerarQtdRebeldes(){
+        return relatorioService.gerarQtdRebeldes();
+    }
+
+    public int gerarQtdTraidores(){
+        return relatorioService.gerarQtdTraidores();
     }
 }

@@ -1,8 +1,9 @@
 package org.example.controller;
 
+import org.example.repository.IIventarioRepository;
 import org.example.service.InventarioService;
 
-public class InventarioController {
+public class InventarioController implements IIventarioRepository {
     private InventarioService inventarioService;
 
     public InventarioController(InventarioService inventarioService) {
@@ -13,7 +14,8 @@ public class InventarioController {
         inventarioService.visualizarInventario(id);
     }
 
-    public void adicionadItemInventario(Long idRebelde, Long idItem){
+
+    public void adicionarItemInventario(Long idRebelde, Long idItem){
         inventarioService.adicionarItemInventario(idRebelde, idItem);
     }
 }

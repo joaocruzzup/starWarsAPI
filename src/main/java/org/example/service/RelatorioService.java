@@ -24,12 +24,12 @@ public class RelatorioService {
     }
 
     public double gerarPorcentagemRebeldes(){
-        relatorio.setPorcentagemRebeldes(((double) gerarQtdTraidores() / (gerarQtdRebeldes() + gerarQtdTraidores())) * 100);
+        relatorio.setPorcentagemRebeldes(((double) gerarQtdRebeldes() / (gerarQtdRebeldes() + gerarQtdTraidores())) * 100);
         return relatorio.getPorcentagemRebeldes();
     }
 
     public double gerarPorcentagemTraidores(){
-        relatorio.setPorcentagemRebeldes(((double) gerarQtdRebeldes() / (gerarQtdRebeldes() + gerarQtdTraidores())) * 100);
+        relatorio.setPorcentagemRebeldes(((double) gerarQtdTraidores() / (gerarQtdRebeldes() + gerarQtdTraidores())) * 100);
         return relatorio.getPorcentagemRebeldes();
     }
 

@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.example.connection.Conexao.getConnection;
 
-public class RebeldeService implements IRebeldeRepository {
+public class RebeldeService{
 
     private Statement statement;
     private RebeldeModel rebelde;
@@ -26,7 +26,6 @@ public class RebeldeService implements IRebeldeRepository {
         }
     }
 
-    @Override
     public List<RebeldeModel> buscarTodosRebeldes() {
         String sql = "SELECT * FROM rebeldes ORDER BY id_rebelde";
         try {
@@ -52,7 +51,6 @@ public class RebeldeService implements IRebeldeRepository {
         }
     }
 
-    @Override
     public RebeldeModel buscarRebeldePorId(Long id) {
         String sql = String.format("SELECT * FROM rebeldes WHERE id_rebelde = %s ", id);
         try {
@@ -75,7 +73,6 @@ public class RebeldeService implements IRebeldeRepository {
         }
     }
 
-    @Override
     public void cadastrarRebelde(RebeldeModel rebelde) {
         String sql = String.format("INSERT INTO rebeldes (nome, idade, genero, localizacao, traidor, ativo)" +
                         " VALUES ('%s', '%d', '%s', '%s', '%b', '%b')",
@@ -88,7 +85,6 @@ public class RebeldeService implements IRebeldeRepository {
         }
     }
 
-    @Override
     public void atualizarDadosPessoais(Long id, String coluna, String valorAtualizado) {
         if (coluna.equalsIgnoreCase("nome") || coluna.equalsIgnoreCase("genero") || coluna.equalsIgnoreCase("idade")) {
             String sql = String.format("UPDATE rebeldes SET %s = '%s' where id_rebelde = '%d'", coluna, valorAtualizado, id);
@@ -104,7 +100,6 @@ public class RebeldeService implements IRebeldeRepository {
 
     }
 
-    @Override
     public void atualizarLocalizacao(Long id, String localizacao) {
         String sql = String.format("UPDATE rebeldes SET localizacao = '%s' where id_rebelde = '%d'", localizacao, id);
         try {
@@ -115,7 +110,6 @@ public class RebeldeService implements IRebeldeRepository {
         }
     }
 
-    @Override
     public void reportarRebelde(Long idDenunciante, Long idReportado) {
         String sql = String.format("INSERT INTO reports (denunciante_id, reportado_id) VALUES (%d, %d)", idDenunciante, idReportado);
         try {
@@ -126,7 +120,6 @@ public class RebeldeService implements IRebeldeRepository {
         }
     }
 
-    @Override
     public void deletarRebelde(Long id) {
         String sql = String.format("DELETE FROM rebeldes WHERE id_rebelde = '%d'", id);
         try {

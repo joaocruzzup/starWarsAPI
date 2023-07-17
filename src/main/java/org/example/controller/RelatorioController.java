@@ -1,8 +1,9 @@
 package org.example.controller;
 
+import org.example.repository.IRelatorioRepository;
 import org.example.service.RelatorioService;
 
-public class RelatorioController {
+public class RelatorioController implements IRelatorioRepository {
     private RelatorioService relatorioService;
 
     public RelatorioController(RelatorioService relatorioService) {

@@ -14,7 +14,7 @@ import java.util.List;
 
 import static org.example.connection.Conexao.getConnection;
 
-public class ItemService implements IItemRepository {
+public class ItemService{
 
     private Statement statement;
     private ItemModel item;
@@ -30,7 +30,6 @@ public class ItemService implements IItemRepository {
         itens = new ArrayList<>();
     }
 
-    @Override
     public void adicionarItem(ItemModel item) {
         String valor = String.valueOf(item.getValor()).replace(",", ".");
         String sql = String.format("INSERT INTO base_compras (nome, valor)" +
@@ -44,7 +43,6 @@ public class ItemService implements IItemRepository {
         }
     }
 
-    @Override
     public void atualizarValor(Long id, String coluna, String valorAtualizado) {
         if (coluna.equalsIgnoreCase("nome") || coluna.equalsIgnoreCase("valor")) {
             String sql;
@@ -65,7 +63,6 @@ public class ItemService implements IItemRepository {
         }
     }
 
-    @Override
     public List<ItemModel> buscarTodosItens() {
         String sql = "SELECT * FROM base_compras ORDER BY id_item";
         try {
@@ -86,7 +83,6 @@ public class ItemService implements IItemRepository {
         }
     }
 
-    @Override
     public ItemModel buscarItemPorId(Long id) {
         String sql = String.format("SELECT * FROM base_compras WHERE id_item = '%s'", id);
         try {

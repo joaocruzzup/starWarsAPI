@@ -64,6 +64,6 @@ public class InventarioView {
         Long idRebelde = sc.nextLong();
         System.out.println("Digite o id do Item: ");
         Long idItem = sc.nextLong();
-        inventarioController.adicionadItemInventario(idRebelde, idItem);
+        inventarioController.adicionarItemInventario(idRebelde, idItem);
     }
 }

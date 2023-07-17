@@ -19,12 +19,14 @@ public class RelatorioView {
         double porcentagemRebeldes = relatorioController.gerarPorcentagemRebeldes();
         double porcentagemTraidores = relatorioController.gerarPorcentagemTraidores();
 
-        System.out.println("------------Relatório de Rebeldes/Traidores-----------");
-        System.out.println("|            | Quantidade | Porcentagem |");
-        System.out.printf(" |  Rebeldes  |   %-4d   |    %-3.2f%%  |   %n", qtdRebeldes, porcentagemRebeldes);
-        System.out.printf(" |  Traidores |   %-4d   |    %-3.2f%%  |   %n", qtdTraidores, porcentagemTraidores);
-        System.out.printf(" |            |          |              |   %n ");
-        System.out.printf(" |   TOTAL:   |   %-4d   |    100,00%%  |   %n", qtdTraidores + qtdRebeldes);
-        System.out.println("----------------------------------------");
+        System.out.println(" -----------------------------------------");
+        System.out.println(" --- Relatório de Rebeldes e Traidores ---");
+        System.out.println(" -----------------------------------------");
+        System.out.println(" |            | Quantidade | Porcentagem |");
+        System.out.printf(" |  Rebeldes  |     %d      |    %.2f%%   |   %n", qtdRebeldes, porcentagemRebeldes);
+        System.out.printf(" |  Traidores |     %d      |    %.2f%%   |   %n", qtdTraidores, porcentagemTraidores);
+        System.out.printf(" |            |            |             |   %n");
+        System.out.printf(" |   TOTAL:   |     %d      |   100,00%%   |   %n", qtdTraidores + qtdRebeldes);
+        System.out.println(" -----------------------------------------");
     }
 }

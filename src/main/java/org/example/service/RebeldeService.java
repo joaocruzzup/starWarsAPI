@@ -28,7 +28,7 @@ public class RebeldeService implements IRebeldeRepository {
 
     @Override
     public List<RebeldeModel> buscarTodosRebeldes() {
-        String sql = "SELECT * FROM rebeldes";
+        String sql = "SELECT * FROM rebeldes ORDER BY id_rebelde";
         try {
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
@@ -54,7 +54,7 @@ public class RebeldeService implements IRebeldeRepository {
 
     @Override
     public RebeldeModel buscarRebeldePorId(Long id) {
-        String sql = String.format("SELECT * FROM rebeldes WHERE id_rebelde = %s", id);
+        String sql = String.format("SELECT * FROM rebeldes WHERE id_rebelde = %s ", id);
         try {
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {

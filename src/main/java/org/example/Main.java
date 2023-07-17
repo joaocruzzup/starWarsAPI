@@ -8,9 +8,7 @@ import static org.example.connection.Conexao.getConnection;
 
 public class Main {
     public static void main(String[] args) {
-//        MenuView menu = new MenuView();
-//        menu.iniciar();
-
-        getConnection();
+        MenuView menu = new MenuView();
+        menu.iniciar();
     }
 }

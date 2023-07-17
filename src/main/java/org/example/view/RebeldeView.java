@@ -23,6 +23,7 @@ public class RebeldeView {
     public void imprimirConsultarRebeldeEspecifico(){
         System.out.print("Digite o ID do rebelde ");
         Long id = sc.nextLong();
+        sc.nextLine();
         rebeldeController.buscarRebeldePorId(id);
     }
 

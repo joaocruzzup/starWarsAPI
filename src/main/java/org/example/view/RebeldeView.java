@@ -5,20 +5,84 @@ import org.example.model.RebeldeModel;
 import org.example.service.RebeldeService;
 import java.util.Scanner;
 
+import static org.example.view.MenuView.limparConsole;
+import static org.example.view.MenuView.selecionarOpcao;
+
 public class RebeldeView {
 
     private Scanner sc;
     private final RebeldeController rebeldeController;
+    private RebeldeService rebeldeService;
     private RebeldeModel rebelde;
 
     public RebeldeView() {
         sc = new Scanner(System.in);
-        RebeldeService rebeldeService = new RebeldeService();
+        rebeldeService = new RebeldeService();
         rebeldeController = new RebeldeController(rebeldeService);
+
     }
-    public void imprimirConsultarTodosRebeldes(){
-        rebeldeController.buscarTodosRebeldes();
+
+    public void imprimirMenuRebelde(){
+        int opcao;
+        do {
+            System.out.println("------ Menu Rebelde ------");
+            System.out.println("Escolha uma das seguintes opções");
+            System.out.println("1 - Consultar todos os Rebeldes");
+            System.out.println("2 - Consultar Rebelde específico");
+            System.out.println("3 - Cadastrar Rebelde");
+            System.out.println("4 - Atualizar dados de um Rebelde");
+            System.out.println("5 - Deletar Rebelde");
+            System.out.println("6 - Reportar um rebelde");
+            System.out.println("0 - Retornar ao MENU PRINCIPAL");
+            opcao = selecionarOpcao();
+            limparConsole();
+
+            switch (opcao) {
+                case 1:
+                    rebeldeController.buscarTodosRebeldes();
+                    System.out.println("Digite ENTER para voltar ao Menu");
+                    sc.nextLine();
+                    limparConsole();
+                    break;
+                case 2:
+                    imprimirConsultarRebeldeEspecifico();
+                    System.out.println("Digite ENTER para voltar ao Menu");
+                    sc.nextLine();
+                    limparConsole();
+                    break;
+                case 3:
+                    imprimirCadastrarRebelde();
+                    System.out.println("Digite ENTER para voltar ao Menu");
+                    sc.nextLine();
+                    limparConsole();
+                    break;
+                case 4:
+                    imprimirAtualizarDadosRebelde();
+                    System.out.println("Digite ENTER para voltar ao Menu");
+                    sc.nextLine();
+                    limparConsole();
+                    break;
+                case 5:
+                    imprimirDeletarRebelde();
+                    System.out.println("Digite ENTER para voltar ao Menu");
+                    sc.nextLine();
+                    limparConsole();
+                    break;
+                case 6:
+                    imprimirReportarRebelde();
+                    System.out.println("Digite ENTER para voltar ao Menu");
+                    sc.nextLine();
+                    limparConsole();
+                    break;
+                default:
+                    System.out.println("Digite uma opção válida");
+                    limparConsole();
+                    break;
+            }
+        } while (opcao != 0);
     }
+
+
 
     public void imprimirConsultarRebeldeEspecifico(){
         System.out.print("Digite o ID do rebelde ");

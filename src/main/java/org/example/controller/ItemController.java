@@ -21,9 +21,10 @@ public class ItemController implements IItemRepository {
     }
 
     @Override
-    public void atualizarValor(Long id, BigDecimal valor) {
-        itemService.atualizarValor(id, valor);
+    public void atualizarValor(Long id, String coluna, String valorAtualizado) {
+        itemService.atualizarValor(id, coluna, valorAtualizado);
     }
+
 
     @Override
     public List<ItemModel> buscarTodosItens() {

@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,9 +32,10 @@ public class ItemService implements IItemRepository {
 
     @Override
     public void adicionarItem(ItemModel item) {
-        String sql = String.format("INSERT INTO base_compras (nome_item, valor)" +
-                        " VALUES (%s, %f')",
-                item.getNome(), item.getValor());
+        String valor = String.valueOf(item.getValor()).replace(",", ".");
+        String sql = String.format("INSERT INTO base_compras (nome, valor)" +
+                        " VALUES ('%s', '%s')",
+                item.getNome(), valor);
         try {
             statement.executeUpdate(sql);
             System.out.println("Item " + item.getNome() + " adicionado com sucesso!");
@@ -43,26 +45,38 @@ public class ItemService implements IItemRepository {
     }
 
     @Override
-    public void atualizarValor(Long id, BigDecimal valor) {
-        String sql = String.format("UPDATE base_compras SET valor = '%s' where id_rebelde = '%d'", valor, id);
-        try {
-            statement.executeUpdate(sql);
-            System.out.println("Item de ID " + id + " atualizado com sucesso!");
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public void atualizarValor(Long id, String coluna, String valorAtualizado) {
+        if (coluna.equalsIgnoreCase("nome") || coluna.equalsIgnoreCase("valor")) {
+            String sql;
+            if (coluna.equalsIgnoreCase("valor")){
+                valorAtualizado = String.valueOf(new BigDecimal(valorAtualizado.replace(",", ".")));
+                sql = String.format("UPDATE base_compras SET valor = '%s' where id_item = '%d'", valorAtualizado, id);
+            } else {
+                sql = String.format("UPDATE rebeldes SET nome = '%s' where id_rebelde = '%d'", valorAtualizado, id);
+            }
+            try {
+                statement.executeUpdate(sql);
+                System.out.println("Rebelde de ID " + id + " atualizado com sucesso!");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Apenas é possível atualizar nome ou valor");
         }
     }
 
     @Override
     public List<ItemModel> buscarTodosItens() {
-        String sql = "SELECT * FROM base_compras";
+        String sql = "SELECT * FROM base_compras ORDER BY id_item";
         try {
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
-                Long idItem = resultSet.getLong("id_rebelde");
-                String nomeItem = resultSet.getString("id_item");
+                Long idItem = resultSet.getLong("id_item");
+                String nomeItem = resultSet.getString("nome");
                 BigDecimal valorItem = resultSet.getBigDecimal("valor");
                 ItemModel item = new ItemModel(idItem, nomeItem, valorItem);
+                System.out.println("ID: " + idItem + " | Nome: " + nomeItem + " | valor: " + valorItem +" |");
+
                 itens.add(item);
             }
             return itens;
@@ -74,13 +88,14 @@ public class ItemService implements IItemRepository {
 
     @Override
     public ItemModel buscarItemPorId(Long id) {
-        String sql = String.format("SELECT * FROM base_compras WHERE id = %s", id);
+        String sql = String.format("SELECT * FROM base_compras WHERE id_item = '%s'", id);
         try {
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
-                Long idItem = resultSet.getLong("id_rebelde");
-                String nomeItem = resultSet.getString("id_item");
+                Long idItem = resultSet.getLong("id_item");
+                String nomeItem = resultSet.getString("nome");
                 BigDecimal valorItem = resultSet.getBigDecimal("valor");
+                System.out.println("ID: " + idItem + " | Nome: " + nomeItem + " | valor: " + valorItem +" |");
                 item = new ItemModel(idItem, nomeItem, valorItem);
             }
             return item;

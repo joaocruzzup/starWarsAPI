@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IItemRepository {
     public abstract void adicionarItem(ItemModel item);
-    public abstract void atualizarValor(Long id, BigDecimal valor);
+    public abstract void atualizarValor(Long id, String coluna, String valorAtualizado);
     public abstract List<ItemModel> buscarTodosItens();
     public abstract ItemModel buscarItemPorId(Long id);
 }

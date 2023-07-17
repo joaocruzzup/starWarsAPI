@@ -36,9 +36,11 @@ public class InventarioService {
         try {
             ResultSet resultSet = statement.executeQuery(sql);
             int i = 1;
+            System.out.println(" --------------");
             while (resultSet.next()){
                 String item = resultSet.getString("nome_item");
-                System.out.printf("Item %d: %s %n", i, item);
+                System.out.printf("| Item %d: %s |%n", i, item);
+                System.out.println(" --------------");
                 i++;
             }
         } catch (SQLException e){

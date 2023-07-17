@@ -11,6 +11,11 @@ public class ItemModel {
 
     }
 
+    public ItemModel(String nome, BigDecimal valor) {
+        this.nome = nome;
+        this.valor = valor;
+    }
+
     public ItemModel(Long id, String nome, BigDecimal valor) {
         this.id = id;
         this.nome = nome;

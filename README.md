@@ -36,6 +36,21 @@ O Sistema conta como algumas funcionalidades, são elas:
 
 ---
 
+## ⏯️ Como executar?
+
+- Você precisará ter o [JDK 11](https://www.oracle.com/java/technologies/downloads/#java11) instalado no seu computador;
+- Baixe o repositório do projeto;
+- Abra o terminal e navegue até o diretório do programa que você deseja executar;
+- Compile o arquivo executando o comando `javac` no arquivo [Main](https://github.com/joaocruzzup/starWarsAPI/blob/main/src/main/java/org/example/Main.java):
+```
+javac Main.java
+```
+- Após compilar, execute o comando `java`, como mostra abaixo:
+```
+java Main.java
+```
+---
+
 ## 🐘 Scripts SQL (PostgreSQL) utilizados
 
 ### 📲 Criação de Tabelas
@@ -152,20 +167,7 @@ FULL JOIN reports ON rebeldes.id_rebelde = reports.denunciante_id
 FULL JOIN rebeldes AS rebeldes_1 ON reports.reportado_id = rebeldes_1.id_rebelde;
 ```
 
-
-## ⏯️ Como executar?
-
-- Você precisará ter o [JDK 11](https://www.oracle.com/java/technologies/downloads/#java11) instalado no seu computador;
-- Baixe o repositório do projeto;
-- Abra o terminal e navegue até o diretório do programa que você deseja executar;
-- Compile o arquivo executando o comando `javac` no arquivo [Main](https://github.com/joaocruzzup/starWarsAPI/blob/main/src/main/java/org/example/Main.java):
-```
-javac Main.java
-```
-- Após compilar, execute o comando `java`, como mostra abaixo:
-```
-java Main.java
-```
+---
 
 ## 👨‍💻 Autor
 

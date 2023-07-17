@@ -48,8 +48,9 @@ public class RebeldeController implements IRebeldeRepository {
         rebeldeService.reportarRebelde(id, idReportado);
     }
 
-    public void alterarStatusTraidor(Long id){
-        rebeldeService.alterarStatusTraidor(id);
+
+    public boolean alterarStatusTraidor(Long id){
+       return rebeldeService.alterarStatusTraidor(id);
     }
 
 }

@@ -12,4 +12,5 @@ public interface IRebeldeRepository {
     public abstract void atualizarDadosPessoais(Long id, String coluna, String valorAtualizado);
     public abstract void atualizarLocalizacao(Long id, String localizacao);
     public abstract void reportarRebelde(Long id, Long idReportado);
+    public abstract boolean alterarStatusTraidor(Long idRebelde);
 }

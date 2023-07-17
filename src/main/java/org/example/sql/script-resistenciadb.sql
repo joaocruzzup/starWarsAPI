@@ -24,7 +24,7 @@ valor decimal(10,2) NOT NULL);
 
 -- CRIANDO TABELA INVENTARIO_REBELDES
 CREATE TABLE inventario_rebeldes(
-id_iventario SERIAL PRIMARY KEY,
+id_inventario SERIAL PRIMARY KEY,
 rebelde_id INTEGER NOT NULL,
 item_id INTEGER NOT NULL,
 FOREIGN KEY (rebelde_id) REFERENCES rebeldes(id_rebelde),
@@ -58,23 +58,23 @@ INSERT INTO reports (denunciante_id, reportado_id) VALUES (1, 2);
 INSERT INTO reports (denunciante_id, reportado_id) VALUES (3, 4); 
 INSERT INTO reports (denunciante_id, reportado_id) VALUES (5, 6); 
 
-SELECT * FROM reports r  ;
+-- SELECONANDO DADOS GENÉRICOS
+SELECT * FROM reports;
 SELECT * FROM rebeldes WHERE id_rebelde = ORDER BY id_rebelde ;
 SELECT * FROM inventario_rebeldes;
 
-
 -- SELECIONANDO QUANTIDADE DE TRAIDORES E REBELDES
-SELECT count(traidor) AS qtd_rebeldes FROM rebeldes WHERE traidor IS FALSE; 
-SELECT count(traidor) AS qtd_traidores FROM rebeldes WHERE traidor IS TRUE; 
+SELECT count(traidor) AS qtd_rebeldes FROM rebeldes WHERE traidor IS FALSE;
+SELECT count(traidor) AS qtd_traidores FROM rebeldes WHERE traidor IS TRUE;
 
 -- UTILIZANDO OS JOINS NAS TABELAS
 -- INNER JOIN -> SELECIONANDO INVENTARIO DE REBELDE ESPECÍFICO
-SELECT rebeldes.id_rebelde, base_compras.nome  
-FROM rebeldes 
+SELECT rebeldes.id_rebelde, base_compras.nome
+FROM rebeldes
 INNER JOIN inventario_rebeldes
-ON rebeldes.id_rebelde = inventario_rebeldes.rebelde_id 
-INNER JOIN base_compras 
-ON inventario_rebeldes.item_id = base_compras.id_item 
+ON rebeldes.id_rebelde = inventario_rebeldes.rebelde_id
+INNER JOIN base_compras
+ON inventario_rebeldes.item_id = base_compras.id_item
 WHERE rebeldes.id_rebelde = '2'
 
 -- LEFT JOIN -> SELECIONANDO TODOS DENUNCIANTES, MAS NEM TODOS REPORTADOS
